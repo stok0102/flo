@@ -4,7 +4,8 @@ class UsersController < ApplicationController
   end
 
   def create
-    if user_params[:password] == user_params[:password_confirmation]
+    user = User.find_by(username: user_params[:username])
+    if user_params[:password] == user_params[:password_confirmation] && !user
       @user = User.new(user_params)
       if @user.save
         flash[:notice] = 'User has been created'
@@ -13,6 +14,9 @@ class UsersController < ApplicationController
         flash[:alert] = 'User not created'
         redirect_to :back
       end
+    elsif user
+      flash[:alert] = 'Username is already taken'
+      redirect_to :back
     else
       flash[:alert] = 'Please try again'
       redirect_to :back
