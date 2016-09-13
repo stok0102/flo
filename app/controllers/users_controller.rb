@@ -25,6 +25,7 @@ class UsersController < ApplicationController
 
   def index
     helpers.current_user
+    helpers.questions
     @users = User.all
   end
 

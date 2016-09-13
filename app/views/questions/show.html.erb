@@ -1,8 +1,14 @@
 <h1><%= @question.title %></h1>
+<h4>Author: <%= @question.user.username %></h4>
 <p>
   <%= @question.content %>
 </p>
 
+<% if @current_user == @question.user %>
 <p><%= link_to "Edit", edit_question_path(@question) %></p>
 <p><%= link_to "Delete", question_path(@question), :data => {:confirm => "Are you sure?", :method => "delete"} %></p>
-<p><%= link_to "Home", questions_path %></p>
+<% end %>
+<p><%= link_to "Home", root_path %></p>
+
+
+<p> You are signed in as: <%= @current_user.username %> </p>
